@@ -6,14 +6,12 @@ const argv = require('./util/argv');
 const port = require('./util//port');
 const setup = require('./middlewares/frontendMiddleware');
 const { resolve } = require('path');
+
 mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/pixboard');
 
 const app = express();
-
-let mongoose = require('./util/mongodb');
-mongoose();
 
 let routes = require('./Routes/MainRoutes');
 routes(app);
