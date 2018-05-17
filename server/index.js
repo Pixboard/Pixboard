@@ -2,19 +2,22 @@
 
 const express = require('express');
 const logger = require('./util//logger');
-
 const argv = require('./util/argv');
 const port = require('./util//port');
 const setup = require('./middlewares/frontendMiddleware');
 const { resolve } = require('path');
+mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/pixboard');
 
 const app = express();
 
-// If you need a backend, e.g. an API, add your custom backend-specific middleware here
-// app.use('/api', myApi);
-app.get('/api/user', (req, res) => {
-  res.send({ express: 'Hello From Express.' });
-});
+let mongoose = require('./util/mongodb');
+mongoose();
+
+let routes = require('./Routes/MainRoutes');
+routes(app);
+
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
