@@ -1,6 +1,7 @@
 /* eslint consistent-return:0 */
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const logger = require('./util//logger');
 const argv = require('./util/argv');
 const port = require('./util//port');
@@ -8,10 +9,17 @@ const setup = require('./middlewares/frontendMiddleware');
 const { resolve } = require('path');
 
 mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/pixboard');
 
 const app = express();
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 let routes = require('./Routes/MainRoutes');
 routes(app);
