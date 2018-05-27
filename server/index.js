@@ -17,12 +17,10 @@ mongoose.connect('mongodb://localhost/pixboard');
 
 const app = express();
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-let routes = require('./Routes/MainRoutes');
-routes(app);
+app.use('/api', require('./routes/index'));
 
 
 // In production we need to pass these values in instead of relying on webpack

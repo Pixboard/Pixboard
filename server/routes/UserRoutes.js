@@ -1,15 +1,22 @@
 'use strict';
+let users = require('express').Router();
 
-module.exports = function(app) {
-    let UserController =  require('../controllers/UserController');
-    let user = new UserController();
 
-    app.get('/users', function (req, res) {
-        user.index(req, res)
-    });
+let UserController =  require('../controllers/UserController');
+let user = new UserController();
 
-    app.get('/users/:id', function (req, res) {
-        user.show(req, res)
-    });
+users.get('/', function (req, res) {
+    user.index(req, res)
+});
 
-};
+users.get('/:id', function (req, res) {
+    user.show(req, res)
+});
+
+users.post('/', function (req, res) {
+  user.create(req, res)
+});
+
+
+
+module.exports = users;
